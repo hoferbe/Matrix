@@ -1,12 +1,13 @@
 import itertools
+import copy
 from typing import List
 
 
-def __mlt__(a : List[float], b : List[float]):
+def dotProduct(a : List[float], b : List[float]):
     if len(a) != len(b): return
     k = 0
     for (i, j) in zip(a, b):
-        k += a*b
+        k += i*j
     return k
 
 def invert(matrixList):
@@ -41,6 +42,9 @@ class Matrix:
         for i in range(self.height):
             for j in range(self.width):
                 temp[j][i] = self.matrixList[i][j]
+        x = self.width
+        self.width = self.height
+        self.height = x
         self.matrixList = temp
 
 
@@ -53,14 +57,18 @@ class Matrix:
         return temp
 
     def __mul__(self, other: 'Matrix'):
-        tempV = Matrix(self.width,  self.height, [])
-        tempM = other.matrixList
-        tempM = invert(tempM)
-        if self.width == other.width and self.height == other.height :
-            for i in range(self.height):
-                for j in range(self.width):
-                    temp.matrixList[i][j] = self.matrixList[i][j] + other.matrixList[i][j]
-        return temp
+        tempM = copy.deepcopy(other)
+        tempM.invert()
+        newWidth = other.width
+        newHeight = self.height
+        tempVector = []
+        if self.width == tempM.width and self.height == tempM.height :
+            for i in range(newHeight):
+                for j in range(newWidth):
+                    tempVector.append(dotProduct(self.matrixList[i], tempM.matrixList[j]))
+
+        ret = Matrix(newWidth, newHeight, tempVector)
+        return ret
 
 
     def printMatrix(self):
