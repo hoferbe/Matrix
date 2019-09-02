@@ -62,7 +62,7 @@ class Matrix:
         newWidth = other.width
         newHeight = self.height
         tempVector = []
-        if self.width == tempM.width and self.height == tempM.height :
+        if self.width == tempM.width:
             for i in range(newHeight):
                 for j in range(newWidth):
                     tempVector.append(dotProduct(self.matrixList[i], tempM.matrixList[j]))
