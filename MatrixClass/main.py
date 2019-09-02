@@ -1,11 +1,8 @@
 from MatrixClass import Matrix
 
 
-vec =  Matrix(1, 3, [1, 2, 3])
-Mat = Matrix(3, 2, [1, 2, 3, 4, 5, 6])
-Mat.printMatrix()
-vec.printMatrix()
-vec2 = Matrix(1, 2, [])
 
-vec2 = Mat*vec
-vec2.printMatrix()
+mat = Matrix(2, 3, [1, 2, 3, 4, 5, 6])
+mat.printMatrix()
+mat.adjust([0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
+mat.printMatrix()

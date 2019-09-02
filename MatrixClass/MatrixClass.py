@@ -10,7 +10,7 @@ def dotProduct(a : List[float], b : List[float]):
         k += i*j
     return k
 
-def invert(matrixList):
+def transpose(matrixList):
     height = len(matrixList)
     width = len(matrixList[0])
     temp = [[0 for x in range(height)] for y in range(width)]
@@ -37,7 +37,7 @@ class Matrix:
                 self.matrixList.append(numbers[i*self.width : (i+1)*self.width])
         self.matrixList.pop(0)
 
-    def invert(self):
+    def transpose(self):
         temp = [[0 for x in range(self.height)] for y in range(self.width)]
         for i in range(self.height):
             for j in range(self.width):
@@ -47,6 +47,10 @@ class Matrix:
         self.height = x
         self.matrixList = temp
 
+    def adjust(self, correction : List[float]):
+        for i in range(self.height):
+            for j in range(self.width):
+                self.matrixList[i][j] += correction[i*self.width + j]
 
     def __add__(self, other: 'Matrix'):
         temp = Matrix(self.width,  self.height, [])
@@ -58,7 +62,7 @@ class Matrix:
 
     def __mul__(self, other: 'Matrix'):
         tempM = copy.deepcopy(other)
-        tempM.invert()
+        tempM.transpose()
         newWidth = other.width
         newHeight = self.height
         tempVector = []
