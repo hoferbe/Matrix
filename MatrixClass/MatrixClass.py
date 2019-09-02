@@ -1,5 +1,6 @@
 import itertools
 import copy
+import random
 from typing import List
 
 
@@ -30,7 +31,7 @@ class Matrix:
             for i in range(self.height):
                 temp = []
                 for j in range(self.width):
-                    temp.append(0)
+                    temp.append(random.random())
                 self.matrixList.append(temp)
         else:
             for i in range(self.height):
@@ -60,7 +61,7 @@ class Matrix:
                     temp.matrixList[i][j] = self.matrixList[i][j] + other.matrixList[i][j]
         return temp
 
-    def __mul__(self, other: 'Matrix'):
+    def __mul__(self, other):
         tempM = copy.deepcopy(other)
         tempM.transpose()
         newWidth = other.width
@@ -73,6 +74,12 @@ class Matrix:
 
         ret = Matrix(newWidth, newHeight, tempVector)
         return ret
+
+    def __mul__(self, vec):
+        tempVec = []
+        for vecM in self.matrixList:
+            tempVec.append(dotProduct(vecM, vec))
+        return tempVec
 
 
     def printMatrix(self):
