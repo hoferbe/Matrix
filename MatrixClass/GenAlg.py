@@ -16,9 +16,15 @@ class GenAlgo:
         return output
 
     def nextGen(self, fit : List[float]):
-        sumOfVec = sum(fit)
+        sumOfVec = 0
+        for el in fit:
+            sumOfVec += el
 
+        for ind in range(len(fit)-1):
+            fit[ind] /= sumOfVec
+        
         ind = []
+        ind.sort()
         while len(ind) < len(self.Neurals)/2:
             randchoice = random.randint(0, len(fit)-1)
             if not randchoice in ind and random.uniform(0, 1) < fit[randchoice]:
@@ -28,6 +34,7 @@ class GenAlgo:
         for  i in range(len(self.Neurals)):
             if not i in ind:
                 ind2.append(i)
+        ind2.sort()
 
         for i in range(len(ind2)):
            self.Neurals.pop(ind2[-i - 1])
