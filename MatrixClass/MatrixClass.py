@@ -31,7 +31,7 @@ class Matrix:
             for i in range(self.height):
                 temp = []
                 for j in range(self.width):
-                    temp.append(random.random())
+                    temp.append(random.uniform(-1, 1))
                 self.matrixList.append(temp)
         else:
             for i in range(self.height):
