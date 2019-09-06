@@ -10,10 +10,11 @@ class NeuralNetwork:
     def __init__(self, layers : int, amountPerLayer : List[int]):
         self.network = []
         for i in range(layers-1):
-            self.network.append(Matrix(amountPerLayer[i], amountPerLayer[i+1], []))
+            self.network.append(Matrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
 
     def feedForward(self, input : List[float]):
         for mat in self.network:
+            input.append(1.0)
             input = mat * input
             input = list(map(self.activationFunction, input))
         return input
