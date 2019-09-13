@@ -10,8 +10,6 @@ import copy
 class NeuralNetwork:
     def __init__(self, layers : int, amountPerLayer : List[int]):
         self.network = []
-        self.adjustvalue = 0.1
-        self.counter = 0
         self.mutateChance = 0.5
         for i in range(layers-1):
             self.network.append(Matrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
@@ -25,7 +23,6 @@ class NeuralNetwork:
         return current
 
     def adjust(self, maxAdjust):
-        self.counter += 1
         for mat in self.network:
             adjustList = []
             for i in range(mat.width * mat.height):

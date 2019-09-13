@@ -8,7 +8,7 @@ import random
 
 
 
-networks = GenAlgo(100, 4, [2, 3, 4, 1])
+networks = GenAlgo(100, 3, [2, 4, 1])
 possible = [[0, 0],[0, 1],[1, 0], [1, 1]]
 solutions = [[0], [1], [1], [0]]
 

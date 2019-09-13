@@ -20,7 +20,7 @@ class GenAlgo:
 
     def nextGen(self, fit : List[float]):
         self.genCounter += 1
-        if self.genCounter % 10**self.correctionCounter == 0:
+        if self.genCounter % 1000**self.correctionCounter == 0:
             self.correctionCounter += 1
             self.maxAdjust /= 10
 
