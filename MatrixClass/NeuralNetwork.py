@@ -3,6 +3,7 @@ from MatrixClass import Matrix
 from typing import List
 import random
 import math
+import copy
 
 
 
@@ -11,22 +12,27 @@ class NeuralNetwork:
         self.network = []
         self.adjustvalue = 0.1
         self.counter = 0
+        self.mutateChance = 0.5
         for i in range(layers-1):
             self.network.append(Matrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
 
     def feedForward(self, input : List[float]):
+        current = copy.deepcopy(input)
         for mat in self.network:
-            input.append(1.0)
-            input = mat * input
-            input = list(map(self.activationFunction, input))
-        return input
+            current.append(1.0)
+            current = mat * current
+            current = [self.activationFunction(listEl) for listEl in current]
+        return current
 
-    def adjust(self):
+    def adjust(self, maxAdjust):
         self.counter += 1
         for mat in self.network:
             adjustList = []
             for i in range(mat.width * mat.height):
-                adjustList.append(random.uniform(-1, 1))
+                if random.random() <= self.mutateChance:
+                    adjustList.append(random.uniform(-maxAdjust, maxAdjust))
+                else: 
+                    adjustList.append(0)
             mat.adjust(adjustList)
 
     def activationFunction(self, inp):

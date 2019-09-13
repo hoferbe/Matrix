@@ -23,10 +23,9 @@ while(True):
     
     print("Average fitness: " + str(statistics.mean(fit)))
     print("Target output: " + str(solutions[choice]))
-    print("Output: " + str(output))
         
     networks.nextGen(fit)
 
-    choice = input("Press a button")
-    if choice == 'o':
-       print(output)
+    #choice = input("Press a button")
+    #if choice == 'o':
+    #   print(output)

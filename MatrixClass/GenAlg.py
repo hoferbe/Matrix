@@ -8,6 +8,9 @@ class GenAlgo:
     def __init__(self, amountOfNetworks, amountOfLayers, layerVec : List[int]):
         self.Neurals = [NeuralNetwork(amountOfLayers, layerVec) for _ in range(amountOfNetworks)]
         self.output = []
+        self.maxAdjust = 1
+        self.genCounter = 1
+        self.correctionCounter = 1
     
     def feedFoward(self, input : List[float]):
         output = []
@@ -16,6 +19,12 @@ class GenAlgo:
         return output
 
     def nextGen(self, fit : List[float]):
+        self.genCounter += 1
+        if self.genCounter % 10**self.correctionCounter == 0:
+            self.correctionCounter += 1
+            self.maxAdjust /= 10
+
+
         sumOfVec = sum(fit)
 
         ind = []
@@ -36,5 +45,5 @@ class GenAlgo:
         tempVec = []
         for net in self.Neurals:
             tempVec.append(copy.deepcopy(net))
-            tempVec[-1].adjust()
+            tempVec[-1].adjust(self.maxAdjust)
         self.Neurals += tempVec
