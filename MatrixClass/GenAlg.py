@@ -20,8 +20,9 @@ class GenAlgo:
         for el in fit:
             sumOfVec += el
 
-        for ind in range(len(fit)-1):
-            fit[ind] /= sumOfVec
+        saveFit = copy.deepcopy(fit)
+        #for ind in range(len(fit)-1):
+            #fit[ind] /= sumOfVec
         
         ind = []
         ind.sort()
@@ -35,6 +36,20 @@ class GenAlgo:
             if not i in ind:
                 ind2.append(i)
         ind2.sort()
+        sumSurvive = 0
+        sumDead = 0
+
+        for index in range(len(saveFit)):
+            if index in ind:
+                sumSurvive += saveFit[index]
+            elif index in ind2:
+                sumDead += saveFit[index]
+            else: print("WTF?")
+
+        print("Max fitness: " + str(max(saveFit)))
+        print("Min fitness: " + str(min(saveFit)))
+        print("Average survived fitness: " + str(sumSurvive/len(ind)) + " with a langth of " + str(len(ind)))
+        print("Average dead fitness: " + str(sumDead/len(ind2)) + " with a langth of " + str(len(ind2)))
 
         for i in range(len(ind2)):
            self.Neurals.pop(ind2[-i - 1])
