@@ -2,17 +2,29 @@ from NeuralNetwork import NeuralNetwork
 from typing import List
 import random
 import copy
+import json
 
 class GenAlgo:
-
-    def __init__(self, amountOfNetworks, amountOfLayers, layerVec : List[int]):
-        self.Neurals = [NeuralNetwork(amountOfLayers, layerVec) for _ in range(amountOfNetworks)]
+    def __init__(self, neuralNetworks):
+        self.Neurals = neuralNetworks
         self.output = []
         self.maxAdjust = 1
         self.genCounter = 1
         self.correctionCounter = 1
         self.mutationsRate = 0.5
-    ##TODO: Writer funciton to save a NN or to save the whole Set and load accordingly
+
+    @classmethod
+    def newGenAlgo(cls, amountOfNetworks, amountOfLayers, layerVec : List[int]) -> 'GenAlgo':
+        Neurals = [NeuralNetwork.newNeuralNetwork(amountOfLayers, layerVec) for _ in range(amountOfNetworks)]
+        return cls(Neurals)
+
+    @classmethod
+    def fromFile(cls, inputString : str) -> 'GenAlgo':
+        listForNetworks = inputString.split("Next Network:")
+        Neurals = []
+        for element in listForNetworks:
+            Neurals.append(NeuralNetwork.fromFile(element))
+        return cls(Neurals)
     
     def feedFoward(self, input : List[float]):
         output = []
@@ -40,3 +52,18 @@ class GenAlgo:
             tempVec.append(copy.deepcopy(net))
             tempVec[-1].adjust(self.maxAdjust, self.mutationsRate)
         self.Neurals += tempVec
+
+    def saveFunction(self):
+        #have to add somehow the current adjustMax, Mutationchance, change in mutationchance and so on to be able to keep training at a later point in time
+        saveString = ""
+        first = True
+        for network in self.Neurals:
+            if first:
+                first  = False
+            else:
+                saveString += "\nNext Network:\n\n"
+            saveString += network.saveFunction()
+        filename = input("Choose file name: ")
+        writer = open(filename + ".txt", "w+")
+        writer.write(saveString);
+        writer.close();

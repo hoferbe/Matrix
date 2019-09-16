@@ -7,13 +7,33 @@ import statistics
 import random
 import keyboard
 
+##TODO: Write a Startup Menu to choose to load networks, load a network or train new ones.
+## Maybe as well to choose between training or just showing
+## And add possibility to choose the values for the networks.
 
+running = True
 
-networks = GenAlgo(100, 3, [2, 4, 1])
+choice =  input("Do you want to load a specific file?[y][n] ")
+networks = GenAlgo
+if choice == "y":
+    worked = False
+    while not worked:
+        name = input("What is the file name?(with  .txt) ")
+        reader = open(name, "r")
+        if reader.mode == "r":
+            worked = True
+        else:
+            print("Opening file didn't work")
+    content  = reader.read()
+    networks = GenAlgo.fromFile(content)
+else:
+    networks = GenAlgo.newGenAlgo(100, 3, [2, 4, 1])
+
 possible = [[0, 0],[0, 1],[1, 0], [1, 1]]
 solutions = [[0], [1], [1], [0]]
 
-while(True):
+
+while(running):
     choice = random.randint(0, 3)
     output = networks.feedFoward(possible[choice])
 
@@ -37,3 +57,6 @@ while(True):
        input("Press enter")
     elif keyboard.is_pressed('p'):
         input("Press enter")
+    elif keyboard.is_pressed('s'):
+        networks.saveFunction()
+        input("Finished")

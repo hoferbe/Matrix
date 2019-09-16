@@ -8,10 +8,24 @@ import copy
 
 
 class NeuralNetwork:
-    def __init__(self, layers : int, amountPerLayer : List[int]):
-        self.network = []
+    def __init__(self, matrices):
+        self.network = matrices
+
+    @classmethod
+    def newNeuralNetwork(cls, layers : int, amountPerLayer : List[int]) -> 'NeuralNetwrok':
+        network = []
         for i in range(layers-1):
-            self.network.append(Matrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
+            network.append(Matrix.newMatrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
+        return cls(network)
+
+    @classmethod
+    def fromFile(cls, inputString : str) -> 'NeuralNetwork':
+        listForMatrices = inputString.split("Next Matrix:")
+        network = []
+        for element in listForMatrices:
+            network.append(Matrix.fromFile(element))
+        network.pop(0)
+        return cls(network)
 
     ##TODO: writer function to save and load a NeuralNetwork
 
@@ -35,3 +49,14 @@ class NeuralNetwork:
 
     def activationFunction(self, inp):
          return 1/(1+math.exp(-inp))
+
+    def saveFunction(self):
+        saveString = ""
+        first = True
+        for matrix in self.network:
+            if first:
+                first = False
+            else:
+                saveString +=  "\nNext Matrix:\n"
+            saveString += matrix.saveFunction()
+        return saveString

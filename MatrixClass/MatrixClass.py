@@ -23,20 +23,45 @@ def transpose(matrixList):
 
 class Matrix:
 
-    def __init__(self, widthI, heightI, numbers: List[float]):
-        self.matrixList = [[]]
-        self.width = widthI
-        self.height = heightI
+    def __init__(self, matrixList, width, height):
+        self.matrixList = matrixList
+        self.width = width
+        self.height = height
+
+    @classmethod
+    def newMatrix(cls, width, height, numbers: List[float]):
+        matrixList = []
         if numbers == []:
-            for i in range(self.height):
+            for i in range(height):
                 temp = []
-                for j in range(self.width):
+                for j in range(width):
                     temp.append(random.uniform(-1, 1))
-                self.matrixList.append(temp)
+                matrixList.append(temp)
         else:
-            for i in range(self.height):
-                self.matrixList.append(numbers[i*self.width : (i+1)*self.width])
-        self.matrixList.pop(0)
+            for i in range(height):
+                matrixList.append(numbers[i*width : (i+1)*width])
+        return cls(matrixList, width, height)
+
+    @classmethod
+    def fromFile(cls, inputString : str) -> 'Matrix':
+        matrixList = [[]]
+        inputString = inputString.split(": ", 1)[1]
+        width = int(inputString.split("\n", 1)[0])
+        inputString = inputString.split(": ", 1)[1]
+        height = int(inputString.split("\n", 1)[0])
+        inputString = inputString.split("\n", 1)[1]
+        for i in range(height):
+            temp = []
+            for j in range(width):
+                temp.append(float(inputString.split(" ", 1)[0]))
+                if j != height-1:
+                    inputString = inputString.split(" ", 1)[1]
+            matrixList.append(temp)
+            inputString.split("\n", 1)[1]
+            matrixList.pop(0)
+            return cls(matrixList, width, height)
+
+
 
     def transpose(self):
         temp = [[0 for x in range(self.height)] for y in range(self.width)]
@@ -86,3 +111,11 @@ class Matrix:
         for line in self.matrixList:
             print(line)
         print('\n')
+
+    def saveFunction(self):
+        saveString = "Width: " + str(self.width) + "\nHeight: " + str(self.height) + "\n"
+        for row in self.matrixList:
+            for el in row:
+                saveString += str(el) + " "
+            saveString += "\n"
+        return saveString
