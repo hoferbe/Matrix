@@ -10,8 +10,12 @@ import copy
 class NeuralNetwork:
     def __init__(self, layers : int, amountPerLayer : List[int]):
         self.network = []
+        self.fitness = 0
         for i in range(layers-1):
             self.network.append(Matrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
+
+    def saveFit(self, fitn):
+        self.fitness = fitn
 
     ##TODO: writer function to save and load a NeuralNetwork
 
