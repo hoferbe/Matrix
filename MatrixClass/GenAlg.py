@@ -54,7 +54,8 @@ class GenAlgo:
         self.Neurals += tempVec
 
     def saveFunction(self):
-        #have to add somehow the current adjustMax, Mutationchance, change in mutationchance and so on to be able to keep training at a later point in time
+        ##have to add somehow the current adjustMax, Mutationchance, change in mutationchance and so on to be able to keep training at a later point in time
+        ##maybe have encoding for the different ways of adjusting mutation with time and then save the generation and accordingly recalc the values needed.
         saveString = ""
         first = True
         for network in self.Neurals:
