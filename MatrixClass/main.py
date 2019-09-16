@@ -26,6 +26,6 @@ while(True):
         
     networks.nextGen(fit)
 
-    #choice = input("Press a button")
-    #if choice == 'o':
-    #   print(output)
+    choice = input("Press a button")
+    if choice == 'o':
+       print(output)
