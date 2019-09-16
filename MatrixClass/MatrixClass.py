@@ -45,9 +45,9 @@ class Matrix:
     @classmethod
     def fromFile(cls, inputString : str) -> 'Matrix':
         matrixList = []
-        inputString = inputString.split(": ", 1)[1]
+        inputString = inputString.split("Width: ", 1)[1]
         width = int(inputString.split("\n", 1)[0])
-        inputString = inputString.split(": ", 1)[1]
+        inputString = inputString.split("Height: ", 1)[1]
         height = int(inputString.split("\n", 1)[0])
         inputString = inputString.split("\n", 1)[1]
         for i in range(height):
@@ -58,7 +58,7 @@ class Matrix:
                     inputString = inputString.split(" ", 1)[1]
             matrixList.append(temp)
             inputString.split("\n", 1)[1]
-            return cls(matrixList, width, height)
+        return cls(matrixList, width, height)
 
 
 

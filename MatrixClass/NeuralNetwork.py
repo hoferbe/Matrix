@@ -24,7 +24,6 @@ class NeuralNetwork:
         network = []
         for element in listForMatrices:
             network.append(Matrix.fromFile(element))
-        network.pop(0)
         return cls(network)
 
     ##TODO: writer function to save and load a NeuralNetwork
