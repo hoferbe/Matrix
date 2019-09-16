@@ -5,6 +5,7 @@ from GenAlg import GenAlgo
 import copy
 import statistics
 import random
+import keyboard
 
 
 
@@ -16,16 +17,21 @@ while(True):
     choice = random.randint(0, 3)
     output = networks.feedFoward(possible[choice])
 
+
     if choice == 1 or choice == 2:
         fit = [max(min(x[0], 1), 0) for x in output]
+        s = sum(1 for x in output if x[0] >= 0.5)
     else:
         fit = [1-min(max(x[0], 0), 1) for x in output]
+        s = sum(1 for x in output if x[0] < 0.5)
     
     print("Average fitness: " + str(statistics.mean(fit)))
+    print("Part that succeeded: " + str(s/len(output)))
     print("Target output: " + str(solutions[choice]))
         
     networks.nextGen(fit)
 
-    choice = input("Press a button")
-    if choice == 'o':
+
+    if keyboard.is_pressed('o'):
        print(output)
+       input("Press a key")

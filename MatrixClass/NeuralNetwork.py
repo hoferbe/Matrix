@@ -10,9 +10,10 @@ import copy
 class NeuralNetwork:
     def __init__(self, layers : int, amountPerLayer : List[int]):
         self.network = []
-        self.mutateChance = 0.5
         for i in range(layers-1):
             self.network.append(Matrix(amountPerLayer[i]+1, amountPerLayer[i+1], []))
+
+    ##TODO: writer function to save and load a NeuralNetwork
 
     def feedForward(self, input : List[float]):
         current = copy.deepcopy(input)
@@ -22,11 +23,11 @@ class NeuralNetwork:
             current = [self.activationFunction(listEl) for listEl in current]
         return current
 
-    def adjust(self, maxAdjust):
+    def adjust(self, maxAdjust, mutationRate):
         for mat in self.network:
             adjustList = []
             for i in range(mat.width * mat.height):
-                if random.random() <= self.mutateChance:
+                if random.random() <= mutationRate:
                     adjustList.append(random.uniform(-maxAdjust, maxAdjust))
                 else: 
                     adjustList.append(0)
