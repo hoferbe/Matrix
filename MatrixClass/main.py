@@ -34,6 +34,4 @@ while(True):
 
     if keyboard.is_pressed('o'):
        print(output)
-       input("Press enter")
-    elif keyboard.is_pressed('p'):
-        input("Press enter")
+       input("Press a key")
