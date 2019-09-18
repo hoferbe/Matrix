@@ -4,6 +4,8 @@ import random
 import copy
 import json
 
+#TODO: Add function to give input only for a certain NN, possibly function to get copy of NN. In that case check if changes of copy change the NN too, which would make it easier.
+
 class GenAlgo:
     def __init__(self, neuralNetworks):
         self.Neurals = neuralNetworks
@@ -34,7 +36,8 @@ class GenAlgo:
 
     def nextGen(self, fit : List[float]):
         self.genCounter += 1
-        if self.genCounter % 100**self.correctionCounter == 0:
+        #if self.genCounter % 100**self.correctionCounter == 0:
+        if self.genCounter % 1000 == 0:
             self.correctionCounter += 1
             self.mutationsRate -= 0.1
             self.mutationsRate = max([0.1, self.mutationsRate])
