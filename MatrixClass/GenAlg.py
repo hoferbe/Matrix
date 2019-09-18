@@ -8,7 +8,7 @@ class GenAlgo:
     def __init__(self, neuralNetworks):
         self.Neurals = neuralNetworks
         self.output = []
-        self.maxAdjust = 1
+        self.maxAdjust = 1  #Maybe adjust to gauss variation instead
         self.genCounter = 1
         self.correctionCounter = 1
         self.mutationsRate = 0.5
