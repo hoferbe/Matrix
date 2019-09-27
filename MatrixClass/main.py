@@ -6,6 +6,7 @@ import copy
 import statistics
 import random
 import keyboard
+import sys
 
 ##TODO: Write a Startup Menu to choose to load networks, load a network or train new ones.
 ## Maybe as well to choose between training or just showing
@@ -53,10 +54,13 @@ while(running):
 
 
     if keyboard.is_pressed('o'):
-       print(output)
-       input("Press enter")
+        sys.stdout.flush()
+        print(output)
+        input("Press enter")
     elif keyboard.is_pressed('p'):
+        sys.stdout.flush()
         input("Press enter")
     elif keyboard.is_pressed('s'):
+        sys.stdout.flush()
         networks.saveFunction()
         input("Finished")

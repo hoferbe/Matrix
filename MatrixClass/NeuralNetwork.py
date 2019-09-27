@@ -41,6 +41,7 @@ class NeuralNetwork:
             adjustList = []
             for i in range(mat.width * mat.height):
                 if random.random() <= mutationRate:
+                    #Change to use gaussion variation instead
                     adjustList.append(random.uniform(-maxAdjust, maxAdjust))
                 else: 
                     adjustList.append(0)
